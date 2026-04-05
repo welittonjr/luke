@@ -31,3 +31,17 @@ type Usage struct {
 	CompletionTokens int `json:"completion_tokens"`
 	TotalTokens      int `json:"total_tokens"`
 }
+
+func (r *Response) Text() string {
+	if len(r.Choices) == 0 {
+		return ""
+	}
+	return r.Choices[0].Message.Content
+}
+
+const (
+	FinishReasonStop          = "stop"
+	FinishReasonLength        = "length"
+	FinishReasonToolCalls     = "tool_calls"
+	FinishReasonContentFilter = "content_filter"
+)
